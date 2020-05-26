@@ -3,23 +3,31 @@
  * Plugin Name:       WP HTTP Blacklist
  * Plugin URI:        https://github.com/BeAPI/wp-http-blacklist
  * Description:       Block unwanted HTTP requests with a blacklist
- * Version:           1.0
- * Requires at least: 4.6
+ * Version:           1.0.0
+ * Requires at least: 4.4
  * Requires PHP:      5.6
  * Author:            Be API
  * Author URI:        https://beapi.fr
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:
+ * Text Domain:       wp-http-blacklist
  * Domain Path:
  */
 
-namespace BEAPI\WP_HTTP_Blacklist;
+namespace BEAPI\WPHTTPBlacklist;
 
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) || die();
 
 add_filter( 'pre_http_request', __NAMESPACE__ . '\\pre_http_request', 100, 3 );
+
+/**
+ * @return false|mixed|\WP_Error
+ *
+ * @param array $parsed_args
+ * @param string $url
+ * @param false|mixed $flag
+ */
 function pre_http_request( $flag, $parsed_args, $url ) {
 	$request_host = wp_parse_url( $url, PHP_URL_HOST );
 	if ( empty( $request_host ) ) {
@@ -42,7 +50,7 @@ function pre_http_request( $flag, $parsed_args, $url ) {
 
 	foreach ( $blacklist as $blacklist_domain ) {
 		if ( $request_host === $blacklist_domain ) {
-			$response = new \WP_Error( 'http_request_blocked', __( 'This URL is blacklisted.' ) );
+			$response = new \WP_Error( 'http_request_blocked', __( 'This URL is blacklisted.', 'wp-http-blacklist' ) );
 			/** This action is documented in wp-includes/class-http.php */
 			do_action( 'http_api_debug', $response, 'response', 'Requests', $parsed_args, $url );
 
