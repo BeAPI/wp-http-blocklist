@@ -41,7 +41,7 @@ function pre_http_request( $flag, $parsed_args, $url ) {
 	$blacklist_file = apply_filters( 'wp_http_blacklist_file', WP_HTTP_BLACKLIST );
 
 	$blacklist = [];
-	if ( is_file( $blacklist_file ) ) {
+	if ( is_file( $blacklist_file ) && is_readable( $blacklist_file ) ) {
 		$blacklist = file( $blacklist_file );
 	}
 
