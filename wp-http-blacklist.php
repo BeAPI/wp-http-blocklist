@@ -16,6 +16,10 @@
 
 namespace BEAPI\WPHTTPBlacklist;
 
+if ( ! defined( 'WP_HTTP_BLACKLIST' ) ) {
+	define( 'WP_HTTP_BLACKLIST', __DIR__ . '/blacklist.txt' );
+}
+
 // Standard plugin security, keep this line in place.
 defined( 'ABSPATH' ) || die();
 
@@ -34,15 +38,17 @@ function pre_http_request( $flag, $parsed_args, $url ) {
 		return $flag;
 	}
 
-	$blacklist = array();
-	if ( is_file( __DIR__ . '/blacklist.txt' ) ) {
-		$blacklist = file( __DIR__ . '/blacklist.txt' );
+	$blacklist_file = apply_filters( 'wp_http_blacklist_file', WP_HTTP_BLACKLIST );
+
+	$blacklist = [];
+	if ( $blacklist_file ) {
+		$blacklist = file( $blacklist_file );
 	}
 
 	$blacklist = apply_filters( 'wp_http_blacklist', $blacklist );
-	$blacklist = array_unique( $blacklist );
-	$blacklist = array_filter( $blacklist );
 	$blacklist = array_map( 'trim', $blacklist );
+	$blacklist = array_filter( $blacklist );
+	$blacklist = array_unique( $blacklist );
 
 	if ( empty( $blacklist ) ) {
 		return $flag;
