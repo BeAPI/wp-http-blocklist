@@ -24,7 +24,7 @@
     "vimeo/psalm": "^3.11",
     "wp-coding-standards/wpcs": "^2.2",
     "overtrue/phplint": "^2.0",
-    "jakub-onderka/php-parallel-lint": "^1.0"
+    "php-parallel-lint/php-parallel-lint": "^1.2"
   },
   "scripts": {
     "cs": "./vendor/bin/phpcs",
