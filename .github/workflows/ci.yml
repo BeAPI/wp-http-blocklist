@@ -33,6 +33,9 @@ jobs:
         coverage: xdebug #optional, setup coverage driver
         tools: prestissimo, psalm, phpcbf, phpcs
 
+    - name: Start mysql service
+      run: sudo /etc/init.d/mysql start
+
     - name: Check PHP Version
       run: php -v
 
