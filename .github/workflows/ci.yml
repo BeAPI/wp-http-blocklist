@@ -46,7 +46,7 @@ jobs:
       run: bash bin/install-wp-tests.sh wordpress_test root root localhost latest
       
     - name: phpunit tests
-      run: ./vendor/bin/phpunit
+      run: phpunit
 
     - name: Add dependencies
       run: composer install
@@ -57,5 +57,5 @@ jobs:
     - name: Check cs
       run: composer cs
 
-    - name: Check cs
+    - name: Check psalm
       run: composer psalm
