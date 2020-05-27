@@ -19,7 +19,8 @@ jobs:
       matrix:
         operating-system: [ ubuntu-latest ]
         php-versions: [ '7.1', '7.2', '7.3' ]
-    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+        wordpress-versions: [ '5.4.1', '5.3.3','5.2.6', '5.1.5','5.0.9', '4.9.14', '4.8.13', '4.7.17', '4.6.18', '4.5.21', '4.4.22','latest' ]
+    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }} and WP ${{matrix.wordpress-versions}}
     steps:
     - name: Checkout
       uses: actions/checkout@v1
@@ -40,7 +41,7 @@ jobs:
       run: php -v
     
     - name: Install WP Tests
-      run: bash bin/install-wp-tests.sh wordpress_test root root localhost latest
+      run: bash bin/install-wp-tests.sh wordpress_test root root localhost ${{matrix.wordpress-versions}}
       
     - name: phpunit tests
       run: phpunit
