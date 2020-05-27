@@ -19,13 +19,8 @@ jobs:
       fail-fast: false
       matrix:
         operating-system: [ ubuntu-latest ]
-        #php-versions: [ '7.1', '7.2', '7.3', '7.4' ]
-        php-versions: [ '7.3' ]
-        #wordpress-versions: [ '5.4.1', '5.3.3','5.2.6', '5.1.5','5.0.9', '4.9.14', '4.8.13', '4.7.17', '4.6.18', '4.5.21', '4.4.22','latest' ]
-        wordpress-versions: [ '4.4.22','latest' ]
-        exclude:
-          - wordpress-versions: '4.4.22'
-            php-versions: '7.3'
+        php-versions: [ '7.1', '7.2', '7.3', '7.4' ]
+        wordpress-versions: [ '5.4.1', '5.3.3','5.2.6', '5.1.5','5.0.9', '4.9.14', '4.8.13', '4.7.17', '4.6.18', '4.5.21', '4.4.22','latest' ]
     name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }} and WP ${{matrix.wordpress-versions}}
     steps:
     - name: Checkout
