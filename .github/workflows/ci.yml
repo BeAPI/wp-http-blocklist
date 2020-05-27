@@ -18,10 +18,9 @@ jobs:
       uses: shivammathur/setup-php@v1
       with:
         php-version: ${{ matrix.php-versions }}
-        extension-csv: mbstring, intl #optional, setup extensions
-        ini-values-csv: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
+        extension: mbstring, intl #optional, setup extensions
+        ini-values: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
         coverage: xdebug #optional, setup coverage driver
-        pecl: false #optional, setup PECL
 
     - name: Check PHP Version
       run: php -v
