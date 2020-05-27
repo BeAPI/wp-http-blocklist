@@ -22,17 +22,12 @@ jobs:
         ini-values: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
         coverage: xdebug #optional, setup coverage driver
         tools: psalm, phpcbf, phpcs
-    - name: Check PHP Version
-      run: php -v
-    
-    - name: Add dependencies
-      run: composer install 
 
     - name: Check composer
       run: composer validate
 
     - name: Check cs
-      run: composer cs
+      run: phpcs
 
     - name: Check psalm
-      run: composer psalm
+      run: psalm
