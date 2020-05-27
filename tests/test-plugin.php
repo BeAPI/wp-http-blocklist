@@ -82,6 +82,8 @@ class WP_HTTP_BLACKLIST extends WP_UnitTestCase {
 		// Old entry ok
 		$result = wp_remote_get('https://connect.advancedcustomfields.com');
 		$this->assertFalse( is_wp_error( $result ) );
+		var_dump($result);
+		die();
 
 		@unlink( __DIR__.'/blacklist_readable.txt' );
 
