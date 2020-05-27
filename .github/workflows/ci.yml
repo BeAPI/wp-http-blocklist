@@ -31,7 +31,7 @@ jobs:
         extensions: mbstring, intl #optional, setup extensions
         ini-values: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
         coverage: xdebug #optional, setup coverage driver
-        tools: prestissimo, psalm, phpcbf, phpcs, phpunit:5.7.*
+        tools: prestissimo, psalm, phpcbf, phpcs, phpunit:5.7.27
 
     - name: Start mysql service
       run: sudo /etc/init.d/mysql start
