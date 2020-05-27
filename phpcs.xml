@@ -9,10 +9,9 @@
   <arg name="extensions" value="php"/>
 
   <!-- Ignore Composer dependencies -->
-  <exclude-pattern>assets/</exclude-pattern>
   <exclude-pattern>languages/</exclude-pattern>
-  <exclude-pattern>public/js/</exclude-pattern>
   <exclude-pattern>vendor/</exclude-pattern>
+  <exclude-pattern>tests/</exclude-pattern>
 
   <!-- Show colors in console -->
   <arg value="-colors"/>
@@ -57,5 +56,18 @@
       <property name="customEscapingFunctions" type="array" value="wc_help_tip,wc_sanitize_tooltip,wc_selected,wc_kses_notice,wc_esc_json,wc_query_string_form_fields,wc_make_phone_clickable" />
     </properties>
   </rule>
+
+  <rule ref="WordPress.WP.I18n">
+    <properties>
+      <!-- Value: replace the text domain used. -->
+      <property name="text_domain" type="array" value="wp-http-blacklist"/>
+    </properties>
+  </rule>
+  <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
+    <properties>
+      <property name="blank_line_check" value="true"/>
+    </properties>
+  </rule>
+
 
 </ruleset>

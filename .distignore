@@ -10,6 +10,7 @@ tests
 .env.testing
 .gitignore
 .DS_Store
+.github
 composer.json
 composer.lock
 grumphp.yml
