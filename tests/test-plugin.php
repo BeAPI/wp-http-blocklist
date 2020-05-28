@@ -36,16 +36,16 @@ class WP_HTTP_BLACKLIST extends WP_UnitTestCase {
 
 	public function test_blacklisted() {
 		// Replace this with some actual testing code.
-		$result = wp_remote_get('https://connect.advancedcustomfields.com');
+		$result = BEAPI\WPHTTPBlacklist\pre_http_request(false, [], 'https://connect.advancedcustomfields.com');
 
 		$this->assertTrue( is_wp_error( $result ) );
 	}
 
 	public function test_not_blacklisted() {
 		// Replace this with some actual testing code.
-		$result = wp_remote_get('https://google.fr');
+		$result = BEAPI\WPHTTPBlacklist\pre_http_request(false, [], 'https://google.fr');
 
-		$this->assertFalse( is_wp_error( $result ) );
+		$this->assertFalse( $result );
 	}
 
 	public function test_filter() {
@@ -54,7 +54,7 @@ class WP_HTTP_BLACKLIST extends WP_UnitTestCase {
 			return $blacklist;
 		});
 
-		$result = wp_remote_get('https://google.fr');
+		$result = BEAPI\WPHTTPBlacklist\pre_http_request(false, [], 'https://google.fr');
 
 		$this->assertTrue( is_wp_error( $result ) );
 
@@ -64,12 +64,12 @@ class WP_HTTP_BLACKLIST extends WP_UnitTestCase {
 		$this->filter_file_redable();
 
 		// New entry with space ok
-		$result = wp_remote_get('https://google.fr');
+		$result = BEAPI\WPHTTPBlacklist\pre_http_request(false, [], 'https://google.fr');
 		$this->assertTrue( is_wp_error( $result ) );
 		$this->assertEquals( $result->get_error_code(), 'http_request_blocked' );
 
 		// New entry with space ok
-		$result = wp_remote_get('https://beapi.fr');
+		$result = BEAPI\WPHTTPBlacklist\pre_http_request(false, [], 'https://beapi.fr');
 		$this->assertTrue( is_wp_error( $result ) );
 		$this->assertEquals( $result->get_error_code(), 'http_request_blocked' );
 
@@ -80,19 +80,18 @@ class WP_HTTP_BLACKLIST extends WP_UnitTestCase {
 		$this->filter_file_redable();
 
 		// Old entry ok
-		$result = wp_remote_get('https://connect.advancedcustomfields.com');
-		$this->assertFalse( is_wp_error( $result ) );
+		$result = BEAPI\WPHTTPBlacklist\pre_http_request(false, [], 'https://connect.advancedcustomfields.com');
+		$this->assertFalse( $result );
 
 		@unlink( __DIR__.'/blacklist_readable.txt' );
-
 	}
 
 	public function test_file_unreadable() {
 		$this->filter_file_unredable();
 
 		// New entry with space ok
-		$result = wp_remote_get('https://google.fr');
-		$this->assertFalse( is_wp_error( $result ) );
+		$result = BEAPI\WPHTTPBlacklist\pre_http_request(false, [], 'https://google.fr');
+		$this->assertFalse( $result );
 		@unlink( __DIR__.'/blacklist_unreadable.txt' );
 	}
 
