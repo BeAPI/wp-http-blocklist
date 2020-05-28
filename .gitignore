@@ -13,3 +13,5 @@
 
 # Tests
 /tests/*.txt
+
+/bin/tests-framework/
