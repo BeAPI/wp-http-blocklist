@@ -30,17 +30,15 @@ jobs:
       with:
         php-version: ${{ matrix.php-versions }}
         coverage: xdebug #optional, setup coverage driver
-        
+        tools: phpunit:7.5.20
+
     - name: Start mysql service
       run: sudo /etc/init.d/mysql start
 
-    - name: Add dependencies
-      run: composer install
-
     - name: Install WP Tests
       env:
-        TMPDIR: bin/tests-framework/
+        TMPDIR: ./bin/tests-framework/
       run: bash bin/install-wp-tests.sh wordpress_test root root localhost latest
       
     - name: phpunit tests
-      run: composer tests
+      run: phpunit
