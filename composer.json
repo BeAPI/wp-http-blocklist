@@ -24,11 +24,14 @@
     "vimeo/psalm": "^3.11",
     "wp-coding-standards/wpcs": "^2.2",
     "overtrue/phplint": "^2.0",
-    "php-parallel-lint/php-parallel-lint": "^1.2"
+    "php-parallel-lint/php-parallel-lint": "^1.2",
+    "phpunit/phpunit": "7.*"
   },
   "scripts": {
     "cs": "./vendor/bin/phpcs",
     "cbf": "./vendor/bin/phpcbf",
-    "psalm": "./vendor/bin/psalm"
+    "psalm": "./vendor/bin/psalm",
+    "install-tests" : "TMPDIR=./bin/tests-framework/ ./bin/install-wp-tests.sh tests root ''",
+    "tests": "./vendor/bin/phpunit --colors=always"
   }
 }
