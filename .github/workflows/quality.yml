@@ -7,6 +7,7 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
+        fail-fast: false
         operating-system: [ ubuntu-latest ]
         php-versions: [ 7.4' ]
     name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
@@ -21,13 +22,15 @@ jobs:
         extensions: mbstring, intl #optional, setup extensions
         ini-values: post_max_size=256M, short_open_tag=On #optional, setup php.ini configuration
         coverage: xdebug #optional, setup coverage driver
-        tools: psalm, phpcbf, phpcs
 
     - name: Check composer
       run: composer validate
 
+    - name: Add dependencies
+      run: composer install
+
     - name: Check cs
-      run: phpcs
+      run: composer cs
 
     - name: Check psalm
-      run: psalm
+      run: composer psalm
