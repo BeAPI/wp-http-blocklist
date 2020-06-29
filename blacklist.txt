@@ -12,3 +12,4 @@ wpallimport.com
 wpopupmaker.com
 www.elegantthemes.com
 www.wpallimport.com
+api.freemius.com
