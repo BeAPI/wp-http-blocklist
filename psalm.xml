@@ -7,7 +7,7 @@
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
     <projectFiles>
-        <file name="wp-http-blacklist.php"/>
+        <file name="wp-http-blocklist.php"/>
         <ignoreFiles>
             <directory name="vendor" />
         </ignoreFiles>

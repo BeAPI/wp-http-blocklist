@@ -1,6 +1,6 @@
 {
-  "name": "beapi/wp-http-blacklist",
-  "description": "Block unwanted HTTP requests with a blacklist",
+  "name": "beapi/wp-http-blocklist",
+  "description": "Block unwanted HTTP requests with a deny list",
   "minimum-stability": "stable",
   "license": "GPL-2.0",
   "authors": [

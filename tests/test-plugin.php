@@ -1,14 +1,14 @@
 <?php
 /**
- * Class WP_HTTP_BLACKLIST
+ * Class WP_HTTP_BLOCKLIST
  *
- * @package WP HTTP Blacklist
+ * @package WP HTTP Blocklist
  */
 
 /**
  * Sample test case.
  */
-class WP_HTTP_BLACKLIST extends WP_UnitTestCase {
+class WP_HTTP_BLOCKLIST extends WP_UnitTestCase {
 
 	/**
 	 * A single example test.
@@ -21,9 +21,9 @@ class WP_HTTP_BLACKLIST extends WP_UnitTestCase {
 	}
 
 	public function test_filter() {
-		add_filter('wp_http_blacklist', function( $blacklist ) {
-			$blacklist[] = 'google.fr';
-			return $blacklist;
+		add_filter('wp_http_blocklist', function( $blocklist ) {
+			$blocklist[] = 'google.fr';
+			return $blocklist;
 		});
 
 		$result = wp_remote_get('https://google.fr');
@@ -33,14 +33,14 @@ class WP_HTTP_BLACKLIST extends WP_UnitTestCase {
 	}
 
 	public function test_file_readable() {
-		add_filter('wp_http_blacklist_file', function() {
-			@unlink( __DIR__.'/blacklist_readable.txt' );
-			file_put_contents( __DIR__.'/blacklist_readable.txt', 
+		add_filter('wp_http_blocklist_file', function() {
+			@unlink( __DIR__.'/blocklist_readable.txt' );
+			file_put_contents( __DIR__.'/blocklist_readable.txt', 
 				'google.fr  
 				beapi.fr
 				' 
 			);
-			return __DIR__.'/blacklist_readable.txt';
+			return __DIR__.'/blocklist_readable.txt';
 		});
 
 		// New entry with space ok
@@ -60,15 +60,15 @@ class WP_HTTP_BLACKLIST extends WP_UnitTestCase {
 	}
 
 	public function test_file_unreadable() {
-		add_filter('wp_http_blacklist_file', function() {
-			@unlink( __DIR__.'/blacklist_unreadable.txt' );
-			file_put_contents( __DIR__.'/blacklist_unreadable.txt', 
+		add_filter('wp_http_blocklist_file', function() {
+			@unlink( __DIR__.'/blocklist_unreadable.txt' );
+			file_put_contents( __DIR__.'/blocklist_unreadable.txt', 
 				'google.fr  
 				beapi.fr
 				' 
 			);
-			chmod(  __DIR__.'/blacklist_unreadable.txt', 0377 );
-			return __DIR__.'/blacklist_unreadable.txt';
+			chmod(  __DIR__.'/blocklist_unreadable.txt', 0377 );
+			return __DIR__.'/blocklist_unreadable.txt';
 		});
 
 		// New entry with space ok
