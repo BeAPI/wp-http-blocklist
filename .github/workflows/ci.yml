@@ -32,7 +32,7 @@ jobs:
         tools: psalm, phpcbf, phpcs, phpunit:5.7.27
 
     - name: Start mysql service
-      run: sudo /etc/init.d/mysql start
+      run: sudo /etc/init.d/mysql start && mysql -V
 
     - name: Check PHP Version
       run: php -v
