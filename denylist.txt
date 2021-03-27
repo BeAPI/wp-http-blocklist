@@ -5,6 +5,7 @@ connect.advancedcustomfields.com
 gravityhelp.com
 plugin-planet.com
 pue.tri.be
+pue.theeventscalendar.com
 theeventscalendar.com
 webtoffee.com
 wp-rocket.me
@@ -13,3 +14,4 @@ wpopupmaker.com
 www.elegantthemes.com
 www.wpallimport.com
 api.freemius.com
+bootstrapped.ventures
