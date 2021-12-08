@@ -22,7 +22,8 @@
     "squizlabs/php_codesniffer": "^3.5",
     "vimeo/psalm": "^4.6",
     "wp-coding-standards/wpcs": "^2.3",
-    "overtrue/phplint": "^2.3"
+    "overtrue/phplint": "^2.3",
+    "yoast/phpunit-polyfills": "^1.0"
   },
   "scripts": {
     "cs": "./vendor/bin/phpcs",
