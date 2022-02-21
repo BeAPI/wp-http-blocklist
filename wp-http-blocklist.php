@@ -57,7 +57,7 @@ function pre_http_request( $flag, $parsed_args, $url ) {
 	foreach ( $blocklist as $blocklist_domain ) {
 		if ( $request_host === $blocklist_domain ) {
 			// translators: First is the host blocked, second is the full url called
-			$response = new \WP_Error( 'http_request_blocked', sprintf( __( 'Host %1$s with URL %2$s is blocked from a deny list.', 'wp-http-blocklist' ), $request_host, $url ) );
+			$response = new \WP_Error( 'http_request_blocked', sprintf( __( 'Host %1$s is blocked from a deny list.', 'wp-http-blocklist' ), $request_host ) );
 			/** This action is documented in wp-includes/class-http.php */
 			do_action( 'http_api_debug', $response, 'response', 'Requests', $parsed_args, $url );
 
