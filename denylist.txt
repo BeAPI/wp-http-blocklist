@@ -8,7 +8,7 @@ pue.tri.be
 pue.theeventscalendar.com
 theeventscalendar.com
 webtoffee.com
-wp-rocket.me
+*wp-rocket.me
 wpallimport.com
 wpopupmaker.com
 www.elegantthemes.com
