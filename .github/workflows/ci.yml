@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ ubuntu-latest ]
-        php-versions: [ '7.2', '7.3', '7.4', '8.0', '8.1' ]
+        php-versions: [ '8.0', '8.1', '8.2', '8.3' ]
         wp: [ '5.4', '5.5', '5.6', '5.7', '5.8', '5.9', '6.0', '6.1', '6.2', '6.3', '6.4', '6.5', '6.6', 'latest' ]
     name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }} with WP ${{ matrix.wp }}
     steps:
@@ -33,7 +33,7 @@ jobs:
         tools: psalm, phpcbf, phpcs, phpunit:5.7.27
 
     - name: Install all depenencies
-      run: composer install --ignore-platform-reqs
+      run: composer update
     
     - name: Install WP Tests
       run: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:3306 ${{ matrix.wp }} true

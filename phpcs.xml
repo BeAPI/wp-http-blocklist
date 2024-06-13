@@ -40,7 +40,7 @@
     <!-- Exclude as we use the short array syntax over the long one. -->
     <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
   </rule>
-  <config name="minimum_supported_wp_version" value="4.4"/>
+  <config name="minimum_supported_wp_version" value="5.4"/>
 
   <rule ref="PHPCompatibility"/>
   <config name="testVersion" value="5.6-"/>
