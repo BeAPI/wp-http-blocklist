@@ -3,7 +3,7 @@
  * Plugin Name:       WP HTTP Blocklist
  * Plugin URI:        https://github.com/BeAPI/wp-http-blocklist
  * Description:       Block unwanted HTTP requests with a deny list
- * Version:           1.0.5
+ * Version:           1.0.6
  * Requires at least: 4.4
  * Requires PHP:      5.6
  * Author:            Be API
