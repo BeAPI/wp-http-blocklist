@@ -12,7 +12,6 @@
 /bin/release/
 
 # Tests
-/tests/*.txt
 /tests/coverage/
 .phpunit.result.cache
 

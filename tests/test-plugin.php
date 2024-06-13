@@ -47,17 +47,11 @@ class WP_HTTP_BLOCKLIST extends WP_UnitTestCase {
 
 	public function test_file_readable() {
 		add_filter('wp_http_blocklist_file', function() {
-			@unlink( __DIR__.'/blocklist_readable.txt' );
-			file_put_contents( __DIR__.'/blocklist_readable.txt', 
-				'google.fr  
-				beapi.fr
-				' 
-			);
-			return __DIR__.'/blocklist_readable.txt';
+			return TEST_DIR . '/blocklist_readable.txt';
 		});
 
 		// New entry with space ok
-		$result = wp_remote_get('https://google.fr');
+		$result = wp_remote_get('https://be-beau.fr');
 		$this->assertTrue( is_wp_error( $result ) );
 		$this->assertEquals( $result->get_error_code(), 'http_request_blocked' );
 
@@ -66,22 +60,15 @@ class WP_HTTP_BLOCKLIST extends WP_UnitTestCase {
 		$this->assertTrue( is_wp_error( $result ) );
 		$this->assertEquals( $result->get_error_code(), 'http_request_blocked' );
 
-
 		// Old entry ok
-		$result = wp_remote_get('https://connect.advancedcustomfields.com');
+		$result = wp_remote_get('https://api.wordpress.org');
 		$this->assertFalse( is_wp_error( $result ) );
 	}
 
 	public function test_file_unreadable() {
 		add_filter('wp_http_blocklist_file', function() {
-			@unlink( __DIR__.'/blocklist_unreadable.txt' );
-			file_put_contents( __DIR__.'/blocklist_unreadable.txt', 
-				'google.fr  
-				beapi.fr
-				' 
-			);
-			chmod(  __DIR__.'/blocklist_unreadable.txt', 0377 );
-			return __DIR__.'/blocklist_unreadable.txt';
+			chmod( TEST_DIR . '/blocklist_unreadable.txt', 0377 );
+			return TEST_DIR.'/blocklist_unreadable.txt';
 		});
 
 		// New entry with space ok
