@@ -20,9 +20,9 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        php-versions: [ '8.0', '8.1', '8.2', '8.3' ]
+        php_versions: [ '8.0', '8.1', '8.2', '8.3' ]
         core: [ '6.0', '6.1', '6.2', '6.3', '6.4', '6.5', 'latest' ]
-    name: Test PHP ${{ matrix.php-versions }} with WP ${{ matrix.core }}
+    name: Test PHP ${{ matrix.php_versions }} with WP ${{ matrix.core }}
     steps:
     - name: Checkout
       uses: actions/checkout@v1
@@ -30,12 +30,12 @@ jobs:
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ matrix.php_version }}
+        php-version: ${{ matrix.php_versions }}
         ini-file: development
         coverage: none
 
     - name: Override PHP version in composer.json
-      run: composer config platform.php ${{ matrix.php_version }}
+      run: composer config platform.php ${{ matrix.php_versions }}
 
     - name: Composer install
       run: composer install -o
@@ -50,7 +50,7 @@ jobs:
       run: npm ci
 
     - name: Launch environment
-      run: WP_ENV_PHP_VERSION=${{ matrix.php_version }} WP_ENV_CORE=WordPress/WordPress#${{ matrix.core }} npm run env:start-ci
+      run: WP_ENV_PHP_VERSION=${{ matrix.php_versions }} WP_ENV_CORE=WordPress/WordPress#${{ matrix.core }} npm run env:start-ci
 
     - name: Updates dependencies for tests
       run: npm run env run tests-wordpress composer update -- -W --working-dir=/var/www/html/wp-content/plugins/wp-http-blocklist/
