@@ -30,9 +30,8 @@ jobs:
       with:
         php-version: ${{ matrix.php-versions }}
         coverage: xdebug #optional, setup coverage driver
-        tools: psalm, phpcbf, phpcs
 
-    - name: Install all depenencies
+    - name: Install all depedencies
       run: composer update
     
     - name: Install WP Tests
