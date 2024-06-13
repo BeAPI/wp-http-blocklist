@@ -29,5 +29,12 @@
     "cs": "./vendor/bin/phpcs",
     "cbf": "./vendor/bin/phpcbf",
     "psalm": "./vendor/bin/psalm"
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "phpro/grumphp-shim": true
+    }
   }
 }

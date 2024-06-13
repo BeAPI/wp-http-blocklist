@@ -32,6 +32,19 @@ class WP_HTTP_BLOCKLIST extends WP_UnitTestCase {
 
 	}
 
+	public function test_remove_entry_filter() {
+		add_filter('wp_http_blocklist', function( $blocklist ) {
+			unset($blocklist[array_search('api.wordpress.org', $blocklist)]);
+			return $blocklist;
+		});
+
+		$result = wp_remote_get('https://api.wordpress.org');
+
+		$this->assertTrue( ! is_wp_error( $result ) );
+
+	}
+
+
 	public function test_file_readable() {
 		add_filter('wp_http_blocklist_file', function() {
 			@unlink( __DIR__.'/blocklist_readable.txt' );
