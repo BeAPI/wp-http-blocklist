@@ -42,33 +42,24 @@ function pre_http_request( $flag, $parsed_args, $url ) {
 
 	$blocklist = [];
 	if ( is_file( $blocklist_file ) && is_readable( $blocklist_file ) ) {
-		$blocklist = file( $blocklist_file );
+		$blocklist = file( $blocklist_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
 	}
 
-	/**
-	 * Here we get the file values and they have a \n at the end.
-	 * Remove all useless caracters.
-	 */
-	$blocklist = array_map( 'trim', $blocklist );
-	$blocklist = array_filter( $blocklist );
-
 	$blocklist = apply_filters( 'wp_http_blocklist', $blocklist );
-	$blocklist = array_unique( $blocklist );
+	$blocklist = array_unique( array_filter( array_map( 'trim', $blocklist ) ) );
 
 	if ( empty( $blocklist ) ) {
 		return $flag;
 	}
 
-	foreach ( $blocklist as $blocklist_domain ) {
-		if ( $request_host === $blocklist_domain ) {
-			// translators: First is the host blocked, second is the full url called
-			$response = new \WP_Error( 'http_request_blocked', sprintf( __( 'Host %1$s is blocked from a deny list.', 'wp-http-blocklist' ), $request_host ) );
-			/** This action is documented in wp-includes/class-http.php */
-			do_action( 'http_api_debug', $response, 'response', 'Requests', $parsed_args, $url );
-
-			return $response;
-		}
+	if ( false === array_search( $request_host, $blocklist ) ) {
+		return $flag;
 	}
 
-	return $flag;
+	// translators: First is the host blocked, second is the full url called
+	$response = new \WP_Error( 'http_request_blocked', sprintf( __( 'Host %1$s is blocked from a deny list.', 'wp-http-blocklist' ), $request_host ) );
+	/** This action is documented in wp-includes/class-http.php */
+	do_action( 'http_api_debug', $response, 'response', 'Requests', $parsed_args, $url );
+
+	return $response;
 }
