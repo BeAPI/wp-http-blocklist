@@ -1,0 +1,13 @@
+{
+  "phpVersion": "8.0",
+  "port": 4013,
+  "plugins": [
+    "."
+  ],
+  "env": {
+    "tests": {
+        "port": 4012
+    }
+}
+
+}

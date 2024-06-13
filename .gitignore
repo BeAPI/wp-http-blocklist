@@ -13,3 +13,9 @@
 
 # Tests
 /tests/*.txt
+/tests/coverage/
+.phpunit.result.cache
+
+
+# Node
+/node_modules/

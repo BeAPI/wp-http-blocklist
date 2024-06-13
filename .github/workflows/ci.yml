@@ -1,41 +1,62 @@
 name: CI
 
-on: [push, pull_request]
+on: # yamllint disable-line rule:truthy
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - "master"
+      - "develop"
+
+permissions:
+  contents: "read"
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
 
 jobs:
   run:    
-    runs-on: ${{ matrix.operating-system }}
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: false
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: wordpress_test
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        operating-system: [ ubuntu-latest ]
         php-versions: [ '8.0', '8.1', '8.2', '8.3' ]
-        wp: [ '6.0', '6.1', '6.2', '6.3', '6.4', '6.5', 'latest' ]
-    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }} with WP ${{ matrix.wp }}
+        core: [ '6.0', '6.1', '6.2', '6.3', '6.4', '6.5', 'latest' ]
+    name: Test PHP ${{ matrix.php-versions }} with WP ${{ matrix.core }}
     steps:
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Setup PHP
+    - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ matrix.php-versions }}
-        coverage: xdebug #optional, setup coverage driver
+        php-version: ${{ matrix.php_version }}
+        ini-file: development
+        coverage: none
 
-    - name: Install all depedencies
-      run: composer update
-    
-    - name: Install WP Tests
-      run: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:3306 ${{ matrix.wp }} true
-      
-    - name: phpunit tests
-      run: ./vendor/bin/phpunit
+    - name: Override PHP version in composer.json
+      run: composer config platform.php ${{ matrix.php_version }}
+
+    - name: Composer install
+      run: composer install -o
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.11.*'
+        cache: npm
+
+    - name: Install JS dependencies
+      run: npm ci
+
+    - name: Launch environment
+      run: WP_ENV_PHP_VERSION=${{ matrix.php_version }} WP_ENV_CORE=WordPress/WordPress#${{ matrix.core }} npm run env:start-ci
+
+    - name: Updates dependencies for tests
+      run: npm run env run tests-wordpress composer update -- -W --working-dir=/var/www/html/wp-content/plugins/wp-http-blocklist/
+
+    - name: Update Yoast dependencies
+      run: npm run env run tests-wordpress composer update -- --dev yoast/phpunit-polyfills -W --working-dir=/var/www/html/wp-content/plugins/wp-http-blocklist/
+
+    - name: Test PHP
+      run: npm run test:php

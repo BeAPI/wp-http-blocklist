@@ -33,8 +33,8 @@ class WP_HTTP_BLOCKLIST extends WP_UnitTestCase {
 	}
 
 	public function test_remove_entry_filter() {
-		add_filter('wp_http_blocklist', function( $blocklist ) {
-			unset($blocklist[array_search('api.wordpress.org', $blocklist)]);
+		add_filter('wp_http_blocklist', function( array $blocklist ) {
+			unset( $blocklist[ array_search( 'api.wordpress.org', $blocklist ) ] );
 			return $blocklist;
 		});
 

@@ -8,8 +8,14 @@
 	convertWarningsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite>
+		<testsuite name="default">
 			<directory prefix="test-" suffix=".php">./tests/</directory>
 		</testsuite>
 	</testsuites>
+		<coverage processUncoveredFiles="true">
+		<include>
+			<file>wp-http-blocklist.php</file>
+		</include>
+	</coverage>
+
 </phpunit>

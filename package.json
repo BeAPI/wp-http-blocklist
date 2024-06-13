@@ -1,0 +1,27 @@
+{
+  "name": "wp-http-blocklist",
+  "version": "1.0.4",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "env": "wp-env",
+    "env:start": "wp-env start --xdebug=coverage",
+    "env:start-ci": "wp-env start",
+    "env:stop": "wp-env stop",
+    "env:reset": "wp-env clean",
+    "env:destroy": "wp-env destroy",
+    "env:cli": "wp-env run cli",
+    "env:tests-cli": "wp-env run tests-cli",
+    "pretest:php": "npm run env run tests-wordpress composer update -- -W --working-dir=/var/www/html/wp-content/plugins/wp-http-blocklist/",
+    "test:php": "wp-env run tests-wordpress /var/www/html/wp-content/plugins/wp-http-blocklist/vendor/bin/phpunit -c /var/www/html/wp-content/plugins/wp-http-blocklist/phpunit.xml.dist -- --coverage-html=/var/www/html/wp-content/plugins/wp-http-blocklist/tests/coverage/"
+  },
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
+  },
+  "author": "beapi",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "@wordpress/env": "^9.6.0"
+  }
+}
