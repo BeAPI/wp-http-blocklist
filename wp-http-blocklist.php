@@ -45,9 +45,14 @@ function pre_http_request( $flag, $parsed_args, $url ) {
 		$blocklist = file( $blocklist_file );
 	}
 
-	$blocklist = apply_filters( 'wp_http_blocklist', $blocklist );
+	/**
+	 * Here we get the file values and they have a \n at the end.
+	 * Remove all useless caracters.
+	 */
 	$blocklist = array_map( 'trim', $blocklist );
 	$blocklist = array_filter( $blocklist );
+
+	$blocklist = apply_filters( 'wp_http_blocklist', $blocklist );
 	$blocklist = array_unique( $blocklist );
 
 	if ( empty( $blocklist ) ) {
