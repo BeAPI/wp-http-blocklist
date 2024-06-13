@@ -10,6 +10,10 @@
  */
 class WP_HTTP_BLOCKLIST extends WP_UnitTestCase {
 
+	public static function tearDownAfterClass(): void {
+		chmod( TEST_DIR . '/blocklist_unreadable.txt', 0755 );
+	}
+
 	/**
 	 * A single example test.
 	 */
