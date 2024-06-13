@@ -23,7 +23,7 @@
     "vimeo/psalm": "^4.6",
     "wp-coding-standards/wpcs": "^2.3",
     "overtrue/phplint": "^2.3",
-    "yoast/phpunit-polyfills": "^1.0"
+    "wp-phpunit/wp-phpunit": "^6.4"
   },
   "scripts": {
     "cs": "./vendor/bin/phpcs",
