@@ -94,6 +94,4 @@
       <property name="blank_line_check" value="true"/>
     </properties>
   </rule>
-
-
 </ruleset>
